@@ -1,0 +1,19 @@
+# Environments
+venv/
+env/
+
+# API Keys and Secrets
+.env
+
+# Python Cache
+__pycache__/
+*.pyc
+.cache
+
+# Audio Files
+*.mp3
+*.wav
+*.m4a
+*.webm
+musicboxd_temp.*
+temp_audio.*
