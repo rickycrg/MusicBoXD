@@ -1,3 +1,10 @@
+<p align="center">
+  <img src="MusicBoxd.png" alt="MusicBoxd Logo" width="275"/>
+</p>
+
+<h1 align="center">MusicBoXD</h1>
+
+
 **MusicBoXD 🎵** is an application to give opinions about Songs and Albums, and based on the user opinion, give new personalized Raccomendation lists based on what the user want, making easier to find new tracks to hear and discover new types of songs.
 
     - Smart Recommendations: Suggests single tracks based on your historical preferences and current mood.
