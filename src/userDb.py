@@ -3,7 +3,7 @@ import os
 
 db_file = "data/userOpinions.csv"
 
-def save_review(song_name, artist, vote, opinion, bpm):
+def save_review(song_name, artist, releaseDate, vote, opinion, bpm):
     os.makedirs("data", exist_ok=True)
 
     file_exists = os.path.isfile(db_file)   
@@ -12,9 +12,9 @@ def save_review(song_name, artist, vote, opinion, bpm):
         writer = csv.writer(file)
 
         if not file_exists:
-            writer.writerow(["song name", "artist", "bpm", "vote", "opinion"])
+            writer.writerow(["song name", "artist", "bpm", "release date", "vote", "opinion"])
 
-        writer.writerow([song_name, artist, bpm, vote, opinion])
+        writer.writerow([song_name, artist, bpm, releaseDate, vote, opinion])
 
     print(f"opinion to {song_name} submitted!")
 

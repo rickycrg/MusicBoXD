@@ -9,13 +9,15 @@ from src.userDb import save_review
 from src.yt_fetcher import get_youtube_url
 from src.audioAnalyzer import getBpmFromFile
 from src.audioDownload import downloadAudio
+from src.dataFeatures import ignoreBpm
+from src.dataFeatures import showSorting
 
 def main():
     """
     Start interface of the application
     """
     print("========================================")
-    print("      🎶 Welcome to MusicBoXD 🎶        ")
+    print("|     🎶 Welcome to MusicBoXD 🎶       |")
     print("========================================\n")
     
 
@@ -27,6 +29,7 @@ def main():
         print("[1] - New Opinion")
         print("[2] - Suggest a Music")
         print("[3] - Make a Playlist")
+        print("[4] - Show List of Reviews")
         print("[0] - EXIT\n")
         try: 
             menuW = input("insert menu voice: ")
@@ -34,7 +37,8 @@ def main():
             if 0 <= menu <= 3:
                 #shutdown
                 if menu == 0:
-                    print("shutting down MusicBoXD")
+                    print("shutting down MusicBoXD and cleaning data.")
+                    ignoreBpm('data/userOpinions.csv')
                     sys.exit(0)
                 elif menu == 1:
                     search = input("insert the new music name: ")
@@ -65,7 +69,7 @@ def main():
                                 print("invalid input, enter a number: ")
 
                         opinion = input("insert opinion about the music: ")
-                        save_review(currentTrack["name"], currentTrack["artist"], vote, opinion, bpm)
+                        save_review(currentTrack["name"], currentTrack["artist"], currentTrack["release_date"],vote, opinion, bpm)
                     finally:
                         if file and os.path.exists(file):
                             os.remove(file)
@@ -83,11 +87,14 @@ def main():
                     mood = getMood()
                     gen = getType()
                     print(f"{genPlaylist(csvDict, mood, gen)}\n")
+                elif menu == 4:
+                    showSorting('data/userOpinions.csv')
                     
 
         # Consent the cntrl+v without bugging
         except KeyboardInterrupt:
-            print("\n\nShutting down MusicBoXD. See you next time!")
+            print("\n\nShutting down MusicBoXD and cleaning data.")
+            ignoreBpm('data/userOpinions.csv')
             sys.exit(0)
 
 if __name__ == "__main__":
