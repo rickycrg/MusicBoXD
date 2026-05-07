@@ -9,7 +9,6 @@ from src.userDb import save_review
 from src.yt_fetcher import get_youtube_url
 from src.audioAnalyzer import getBpmFromFile
 from src.audioDownload import downloadAudio
-from src.dataFeatures import ignoreBpm
 from src.dataFeatures import showSorting
 
 def main():
@@ -34,13 +33,11 @@ def main():
         try: 
             menuW = input("insert menu voice: ")
             menu = int(menuW)
-            if 0 <= menu <= 3:
-                #shutdown
-                if menu == 0:
+            match(menu):
+                case 0:
                     print("shutting down MusicBoXD and cleaning data.")
-                    ignoreBpm('data/userOpinions.csv')
                     sys.exit(0)
-                elif menu == 1:
+                case 1:
                     search = input("insert the new music name: ")
                     currentTrack = get_track_metadata(search)
                     #edgecases to debug if the function dont works
@@ -74,27 +71,25 @@ def main():
                         if file and os.path.exists(file):
                             os.remove(file)
                             print("success")
-                elif menu == 2:
+                case 2:
                     # Using pandas to convert the csv file to a Dict, to make the AI interpretate the data
                     df = pd.read_csv('data/userOpinions.csv')
                     csvDict = df.to_dict
                     mood = getMood()
                     gen = getType()
                     print(f"{suggestOne(csvDict, mood, gen)}\n")
-                elif menu == 3:
+                case 3:
                     df = pd.read_csv('data/userOpinions.csv')
                     csvDict = df.to_dict
                     mood = getMood()
                     gen = getType()
                     print(f"{genPlaylist(csvDict, mood, gen)}\n")
-                elif menu == 4:
+                case 4:
                     showSorting('data/userOpinions.csv')
-                    
 
         # Consent the cntrl+v without bugging
         except KeyboardInterrupt:
             print("\n\nShutting down MusicBoXD and cleaning data.")
-            ignoreBpm('data/userOpinions.csv')
             sys.exit(0)
 
 if __name__ == "__main__":

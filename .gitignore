@@ -17,3 +17,7 @@ __pycache__/
 *.webm
 musicboxd_temp.*
 temp_audio.*
+
+# Backup files
+
+*.txt
