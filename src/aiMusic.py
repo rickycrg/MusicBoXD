@@ -6,7 +6,7 @@ def getMood():
     return mood
 
 def getType():
-    print("and what type of music fo you want to hear today? (rap, rock, pop...)")
+    print("and what type of music do you want to hear today? (rap, rock, pop...)")
     type = input(" ")
     return type
 
@@ -14,8 +14,8 @@ def suggestOne(taste, mood, type):
 
     prompt = f"""
     You are a friend of user and an expert music curator.
-    The user wants you to reccomend a music based on his music taste: {taste}, in his current mood: {mood} and in what type of music he wants to hear: {type}.
-    Reccomend to user EXACTLY 1 music considerating users taste, but changing tempo and genre based on the user's mood and on what he wants to hear.
+    The user wants you to recommend a music based on his music taste: {taste}, in his current mood: {mood} and in what type of music he wants to hear: {type}.
+    Recommend to user EXACTLY 1 music considering users taste, but changing tempo and genre based on the user's mood and on what he wants to hear.
     """
 
     try:

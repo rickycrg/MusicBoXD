@@ -31,15 +31,13 @@ def downloadAudio(youtubeUrl):
             ydl.download([youtubeUrl])
 
         downloadedFiles = glob.glob("temp_audio.*")
-        
-        actualFile = downloadedFiles[0]
 
         if downloadedFiles:
             print("successfully downloaded.")
+            return downloadedFiles[0]
         else:
             print("downloaded but not complete.")
-
-        return actualFile
+            return None
     except Exception as e:
         print(f"error : {e}")
         return None

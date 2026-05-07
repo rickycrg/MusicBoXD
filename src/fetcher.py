@@ -4,13 +4,13 @@ from spotipy.oauth2 import SpotifyClientCredentials
 
 from dotenv import load_dotenv
 
+load_dotenv()
 
 def get_track_metadata(search_query):
-    
-    load_dotenv()
+
     client_id = os.getenv("SPOTIPY_CLIENT_ID")
     secret = os.getenv("SPOTIPY_CLIENT_SECRET")
-    
+
     if not client_id or not secret:
         raise ValueError("Missing Spotify credentials in environment.")
 

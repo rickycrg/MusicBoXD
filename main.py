@@ -13,18 +13,15 @@ from src.dataFeatures import showSorting
 
 def main():
     """
-    Start interface of the application
+    Start interactive menu interface for the MusicBoXD application.
+    Users can add music reviews, get recommendations, create playlists, or view their review history.
     """
     print("========================================")
     print("|     🎶 Welcome to MusicBoXD 🎶       |")
     print("========================================\n")
-    
 
     while True:
-        """
-        Interactive basic menu to let the user decide what does he want to do
-        """
-        print("============ MENU ============\n")    
+        print("============ MENU ============\n")
         print("[1] - New Opinion")
         print("[2] - Suggest a Music")
         print("[3] - Make a Playlist")
@@ -40,7 +37,6 @@ def main():
                 case 1:
                     search = input("insert the new music name: ")
                     currentTrack = get_track_metadata(search)
-                    #edgecases to debug if the function dont works
                     if not currentTrack:
                         print("music does not exists")
                         continue
@@ -54,40 +50,33 @@ def main():
                         os.remove(file)
                     else:
                         print("Download failed, skipping bpm calculation.")
-                        bpm = -1.0  
-                    try: 
+                        bpm = -1.0
 
-                        vote = -1
-                        #Getting user's opinion
-                        while vote < 1 or vote > 5:
-                            try:
-                                vote = int(input("insert vote (1 to 5): "))
-                            except ValueError:
-                                print("invalid input, enter a number: ")
+                    vote = -1
+                    while vote < 1 or vote > 5:
+                        try:
+                            vote = int(input("insert vote (1 to 5): "))
+                        except ValueError:
+                            print("invalid input, enter a number: ")
 
-                        opinion = input("insert opinion about the music: ")
-                        save_review(currentTrack["name"], currentTrack["artist"], currentTrack["release_date"],vote, opinion, bpm)
-                    finally:
-                        if file and os.path.exists(file):
-                            os.remove(file)
-                            print("success")
+                    opinion = input("insert opinion about the music: ")
+                    save_review(currentTrack["name"], currentTrack["artist"], currentTrack["release_date"], vote, opinion, bpm)
+                    print("success")
                 case 2:
-                    # Using pandas to convert the csv file to a Dict, to make the AI interpretate the data
                     df = pd.read_csv('data/userOpinions.csv')
-                    csvDict = df.to_dict
+                    csvDict = df.to_dict()
                     mood = getMood()
                     gen = getType()
                     print(f"{suggestOne(csvDict, mood, gen)}\n")
                 case 3:
                     df = pd.read_csv('data/userOpinions.csv')
-                    csvDict = df.to_dict
+                    csvDict = df.to_dict()
                     mood = getMood()
                     gen = getType()
                     print(f"{genPlaylist(csvDict, mood, gen)}\n")
                 case 4:
                     showSorting('data/userOpinions.csv')
 
-        # Consent the cntrl+v without bugging
         except KeyboardInterrupt:
             print("\n\nShutting down MusicBoXD and cleaning data.")
             sys.exit(0)
