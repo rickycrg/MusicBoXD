@@ -20,6 +20,8 @@
 
 *New functionalities and improvements coming soon...*
 
+**Warning** : this application works *locally*, you need to create your own CloudFlare D1 database to use it.
+
 **(BYOK)⚒️**
 
 Setup and Installation.
@@ -30,6 +32,7 @@ To run MusicBoXD locally, you need to export the following variables (Spotify an
     export SPOTIPY_CLIENT_SECRET="your-secret"
     export YOUTUBE_API_KEY="your-youtube-api-key"
     export CLOUDFLARE_ACCOUNT_ID="your-cloudflare-account-id"
+    export CLOUDFLARE_D1_DATABASE="your-cloudflare-d1-database"
     export CLOUDFLARE_API_TOKEN="your-cloudflare-api-token"
 
 After keys exportation, ensure you have Python installed and install the required dependencies in the terminal:
