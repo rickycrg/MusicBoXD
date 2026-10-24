@@ -1,0 +1,11 @@
+{
+  "name": "musicboxd",
+  "compatibility_date": "2026-10-23",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "musicboxd",
+      "database_id": "c57c892b-4fc4-4cde-801b-4317f4c91eca"
+    }
+  ]
+}

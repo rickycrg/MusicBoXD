@@ -1,7 +1,12 @@
 import pandas as pd
 
-def showSorting(file):
-    df = pd.read_csv(file, parse_dates=["release date"])
+def showSorting(df):
+    if df.empty:
+        print("no reviews yet.\n")
+        return False
+
+    # spotify release dates can be just 'YYYY' or 'YYYY-MM'
+    df["release date"] = pd.to_datetime(df["release date"], format="mixed", errors="coerce")
     df["vote"] = pd.to_numeric(df["vote"], errors="coerce")
 
     while True:

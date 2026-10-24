@@ -49,7 +49,11 @@ def get_track_metadata(search_query):
         "name": selected_track.get('name', 'Unknown Name'),
         "artist": selected_track.get('artists', [{'name': 'Unknown'}])[0]['name'],
         "release_date": selected_track.get('album', {}).get('release_date', 'Unknown Date'),
-        "preview_url": selected_track.get('preview_url') 
+        "preview_url": selected_track.get('preview_url'),
+        "artists": [a['name'] for a in selected_track.get('artists', [])] or ['Unknown'],
+        "album": selected_track.get('album', {}).get('name', 'Unknown Album'),
+        "album_artist": selected_track.get('album', {}).get('artists', [{'name': 'Unknown'}])[0]['name'],
+        "track_number": selected_track.get('track_number')
     }
     
     return metadata

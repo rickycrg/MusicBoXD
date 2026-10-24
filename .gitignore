@@ -19,5 +19,12 @@ musicboxd_temp.*
 temp_audio.*
 
 # Backup files
-
 *.txt
+
+# Node / Cloudflare
+node_modules/
+.wrangler/
+.dev.vars
+
+# macOS
+.DS_Store
