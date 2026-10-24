@@ -16,7 +16,7 @@
 **How it works ⚙️**
 
     Consists of a python application integrated with the AI model Llama3 (via Ollama).
-    User data (opinions) are saved in a CSV file using pandas library. The AI model analyze your musical taste and reccomends new music- or makes a custom playlist, based on your mood and on requested genres.
+    User data (opinions) are stored in a database using CloudFlare D1. The AI model analyze your musical taste and reccomends new music- or makes a custom playlist, based on your mood and on requested genres.
 
 *New functionalities and improvements coming soon...*
 
@@ -29,6 +29,8 @@ To run MusicBoXD locally, you need to export the following variables (Spotify an
     export SPOTIPY_CLIENT_ID="your-client-id"
     export SPOTIPY_CLIENT_SECRET="your-secret"
     export YOUTUBE_API_KEY="your-youtube-api-key"
+    export CLOUDFLARE_ACCOUNT_ID="your-cloudflare-account-id"
+    export CLOUDFLARE_API_TOKEN="your-cloudflare-api-token"
 
 After keys exportation, ensure you have Python installed and install the required dependencies in the terminal:
 
