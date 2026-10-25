@@ -72,21 +72,30 @@ def _get_or_create_album(name, release_date, artist_id):
     )
     return row["album_id"]
 
-def _get_or_create_track(name, artist_ids, bpm):
-    """Tracks are identified by their name and main artist."""
-    main_artist = artist_ids[0]
-    row = query_one(
-        "SELECT t.track_id FROM tracks t "
-        "JOIN track_artists ta ON ta.track_id = t.track_id "
-        "WHERE t.name = ? AND ta.artist_id = ? AND ta.role = 'main'",
-        [name, main_artist],
-    )
+def _get_or_create_track(name, spotify_id, artist_ids, bpm):
+    """
+    Tracks are identified by their spotify id. Tracks saved before the spotify id
+    existed are matched by name and main artist, and get the id filled in.
+    """
+    row = query_one("SELECT track_id FROM tracks WHERE spotify_id = ?", [spotify_id]) if spotify_id else None
+    if not row:
+        row = query_one(
+            "SELECT t.track_id FROM tracks t "
+            "JOIN track_artists ta ON ta.track_id = t.track_id "
+            "WHERE t.name = ? AND ta.artist_id = ? AND ta.role = 'main' AND t.spotify_id IS NULL",
+            [name, artist_ids[0]],
+        )
     if row:
-        if bpm is not None:
-            query("UPDATE tracks SET bpm = ? WHERE track_id = ?", [bpm, row["track_id"]])
+        query(
+            "UPDATE tracks SET bpm = COALESCE(?, bpm), spotify_id = COALESCE(spotify_id, ?) WHERE track_id = ?",
+            [bpm, spotify_id, row["track_id"]],
+        )
         return row["track_id"]
 
-    track_id = query_one("INSERT INTO tracks (name, bpm) VALUES (?, ?) RETURNING track_id", [name, bpm])["track_id"]
+    track_id = query_one(
+        "INSERT INTO tracks (name, spotify_id, bpm) VALUES (?, ?, ?) RETURNING track_id",
+        [name, spotify_id, bpm],
+    )["track_id"]
 
     for i, artist_id in enumerate(artist_ids):
         query(
@@ -103,7 +112,7 @@ def save_review(user_id, track, vote, opinion, bpm):
     artist_ids = [_get_or_create_artist(name) for name in track["artists"]]
     album_artist_id = _get_or_create_artist(track["album_artist"])
     album_id = _get_or_create_album(track["album"], track["release_date"], album_artist_id)
-    track_id = _get_or_create_track(track["name"], artist_ids, None if bpm < 0 else bpm)
+    track_id = _get_or_create_track(track["name"], track.get("spotify_id"), artist_ids, None if bpm < 0 else bpm)
 
     if track.get("track_number"):
         query(

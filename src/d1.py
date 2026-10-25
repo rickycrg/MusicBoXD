@@ -5,8 +5,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# database_id from wrangler.jsonc, can be overridden from the environment
-DEFAULT_DATABASE_ID = "c57c892b-4fc4-4cde-801b-4317f4c91eca"
 
 class D1Error(Exception):
     pass
@@ -18,7 +16,7 @@ def query(sql, params=None):
     """
     account_id = os.getenv("CLOUDFLARE_ACCOUNT_ID")
     api_token = os.getenv("CLOUDFLARE_API_TOKEN")
-    database_id = os.getenv("D1_DATABASE_ID", DEFAULT_DATABASE_ID)
+    database_id = os.getenv("CLOUDFLARE_D1_DATABASE")
 
     if not account_id or not api_token:
         raise ValueError("Missing Cloudflare credentials in environment.")

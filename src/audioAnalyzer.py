@@ -12,7 +12,8 @@ def getBpmFromFile(filepath):
         bpm = float(tempo[0]) if isinstance(tempo, np.ndarray) else float(tempo)
 
         return round(bpm, 1)
-    
+
+    # the -1 value it is used for the music that the function can't find the bpm
     except Exception as e:
         print(f"error in bpm calculation : {e}")
-        return None
+        return -1

@@ -21,6 +21,8 @@ temp_audio.*
 # Backup files
 *.txt
 
+!requirements.txt
+
 # Node / Cloudflare
 node_modules/
 .wrangler/

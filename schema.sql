@@ -35,8 +35,9 @@ CREATE TABLE albums (
 
 CREATE TABLE tracks (
     track_id INTEGER PRIMARY KEY,
-    name     TEXT    NOT NULL,
-    bpm      REAL                            -- computed from audio, NULL if unknown
+    name       TEXT    NOT NULL,
+    spotify_id TEXT    UNIQUE,                 -- Spotify track id, e.g. '4uLU6hMCjMI75M1A2tKUQC'
+    bpm        REAL                            -- computed from audio, NULL if unknown
 );
 
 -- ============ N:M relationships (junction tables) ============
